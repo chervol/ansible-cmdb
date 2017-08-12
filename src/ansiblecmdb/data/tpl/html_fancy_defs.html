@@ -614,12 +614,13 @@
 <%def name="col_nvidia(host, **kwargs)">
   % try:
     % for gpu in jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]):
-      color='#000000'
-      % if gpu['power.draw'] < 50:
-        color='#dd0000'
-        % endif
-        <span style="color:${color}">[${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C ${gpu['memory.used']}Mb 
-        ${gpu['power.draw']}/${gpu['power.limit']}W</span><br />
+      <%
+        color='#000000'
+        if float(gpu['power.draw']) < 50:
+          color='#dd0000'
+      %>
+      <span style="color:${color}">[${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C 
+        ${gpu['memory.used']}Mb ${gpu['power.draw']}/${gpu['power.limit']}W</span><br />
     % endfor
   % except AttributeError:
    
