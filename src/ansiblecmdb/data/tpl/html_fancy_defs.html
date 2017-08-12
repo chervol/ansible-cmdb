@@ -15,6 +15,7 @@
   cols = [
     {"title": "Name",          "id": "name",          "func": col_name,           "sType": "string", "visible": True},
     {"title": "Main IP",       "id": "main_ip",       "func": col_main_ip,        "sType": "string", "visible": True},
+    {"title": "GPU count",     "id": "gpucount",      "func": col_gpu_count,      "sType": "string", "visible": True},
     {"title": "GPU info",      "id": "nvidia",        "func": col_nvidia,         "sType": "string", "visible": True},
     {"title": "Mem Usage",     "id": "mem_usage",     "func": col_mem_usage,      "sType": "string", "visible": True},
     {"title": "Disk usage",    "id": "disk_usage",    "func": col_disk_usage,     "sType": "string", "visible": True},
@@ -613,8 +614,21 @@
 <%def name="col_nvidia(host, **kwargs)">
   % try:
     % for gpu in jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]):
-      [${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C ${gpu['memory.used']}Mb ${gpu['power.draw']}/${gpu['power.limit']}W <br />
+       color='#000000'
+      % if ${gpu['power.draw']} < 50:
+          color='#dd0000'
+      % endif
+        <span style="color:${color}">[${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C ${gpu['memory.used']}Mb 
+        ${gpu['power.draw']}/${gpu['power.limit']}W</span><br />
     % endfor
+  % except AttributeError:
+   
+  % endtry
+</%def>
+
+<%def name="col_gpu_count(host, **kwargs)">
+  % try:
+    % len(jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]))
   % except AttributeError:
    
   % endtry
