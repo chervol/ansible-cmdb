@@ -611,13 +611,13 @@
 </%def>
 
 <%def name="col_nvidia(host, **kwargs)">
-  #% try:
+  % try:
     % for gpu in jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]):
-      [${gpu['index']}] ${gpu['name'].replace} ${gpu['temperature.gpu']}C ${gpu['memory.used']}Mb ${gpu['power.draw']}/${gpu['power.limit']}W <br />
+      [${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C ${gpu['memory.used']}Mb ${gpu['power.draw']}/${gpu['power.limit']}W <br />
     % endfor
-  #% except AttributeError:
+  % except AttributeError:
    
-  #% endtry
+  % endtry
 </%def>
 
 <%def name="col_nr_of_ifaces(host, **kwargs)">
