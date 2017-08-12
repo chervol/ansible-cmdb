@@ -28,12 +28,12 @@ if host_details is False:
 
 <% html_header("Ansible Overview", local_js, res_url) %>
 <% html_header_bar("Host overview") %>
-<% html_col_toggles(cols) %>
+## <% html_col_toggles(cols) %>
 <% html_host_overview(cols, hosts, skip_empty=skip_empty, link_type=link_type) %>
 <script>
 $(document).ready( function () {
   <% js_init_host_overview(cols) %>
-  <% js_ev_collapse() %>
+##  <% js_ev_collapse() %>
 });
 </script>
 <% html_footer() %>
