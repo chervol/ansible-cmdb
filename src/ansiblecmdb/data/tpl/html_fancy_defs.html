@@ -628,7 +628,7 @@
 
 <%def name="col_gpu_count(host, **kwargs)">
   % try:
-    % len(jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]))
+    ${len(jsonxs(host, 'ansible_facts.ansible_local.nvidia.gpus', default=[]))}
   % except AttributeError:
    
   % endtry
