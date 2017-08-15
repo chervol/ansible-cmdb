@@ -619,7 +619,7 @@
         if float(gpu['power.draw']) < 50:
           color='#dd0000'
       %>
-      <span style="color:${color}">[${gpu['index']}] ${gpu['name']} ${gpu['temperature.gpu']}C 
+      <span style="color:${color}">[${gpu['index']}] ${gpu['name']} ${gpu['fan.speed']}% ${gpu['temperature.gpu']}C 
         ${gpu['memory.used']}Mb ${gpu['power.draw']}/${gpu['power.limit']}W</span><br />
     % endfor
   % except AttributeError:
